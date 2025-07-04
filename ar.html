@@ -1110,7 +1110,8 @@ button:hover {
   <section class="contact">
     <h2>التواصل والطلب</h2>
     <p>يمكنك أيضًا مراسلتنا مباشرةً عبر واتساب! 📱</p>
-    <p><a href="https://wa.me/+905514808648" target="_blank">اضغط هنا للطلب عبر واتساب</a></p>
+    <p><a href=`https://wa.me/${phoneNumber}>اضغط هنا للطلب عبر واتساب</a></p>
+
     <p>💸 الدفع عند الاستلام أو عن طريق تحويل بنكي</p>
     <p>🚚 توصيل <strong>مجاني</strong> لباب بيتك</p>
   </section>
@@ -1484,7 +1485,8 @@ function placeOrderNow({ name, daire, block, pay }) {
   msg += `%0Aالاسم: ${encodeURIComponent(name)}`;
   msg += "%0AThank you!";
 
-  window.open(`https://wa.me/${phoneNumber}?text=${msg}`, "_blank");
+  window.location.href = `https://wa.me/${phoneNumber}?text=${msg}`;
+
 
   drawer.classList.remove("open");   // close the cart panel
 }
