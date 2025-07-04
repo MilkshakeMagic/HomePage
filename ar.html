@@ -1007,7 +1007,7 @@ button:hover {
     <div class="header-inner">
       <!-- Removed logo from here -->
       <video autoplay muted loop playsinline id="heroVideo">
-        <source src="video/pink_milkshake.mp4" type="video/mp4">
+        <source src="pink_milkshake.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       
@@ -1063,7 +1063,7 @@ button:hover {
       <div class="flavor" data-name="ميلك شيك موز وشوكولاتة" data-price="100">
         <img
             class="flavor-img"
-            src="images/milkshakes/banana.jpeg"
+            src="banana.jpeg"
         />
         <h3>🍌🍫 ميلك شيك موز وشوكولاتة</h3>
         <p>مزيج لذيذ من الموز الطازج والشوكولاتة، ناعم ومشبع.</p>
@@ -1074,7 +1074,7 @@ button:hover {
       <div class="flavor" data-name="ميلك شيك فراولة" data-price="120">
         <img
             class="flavor-img"
-            src="images/milkshakes/strawberry.jpeg"
+            src="strawberry.jpeg"
         />
         <h3>🍓 ميلك شيك فراولة</h3>
         <p>فراولة طازجة، نكهة حلوة، وقوام كريمي منعش.</p>
@@ -1085,7 +1085,7 @@ button:hover {
       <div class="flavor" data-name="ميلك شيك آيس لاتيه" data-price="90">
         <img
             class="flavor-img"
-            src="images/milkshakes/ice_latte.jpeg"
+            src="ice_latte.jpeg"
         />
         <h3>🧋 ميلك شيك آيس لاتيه</h3>
         <p>قهوة باردة ممزوجة بالحليب، ناعمة ومنعشة لعشاق الكافيين.</p>
@@ -1096,7 +1096,7 @@ button:hover {
       <div class="flavor" data-name="ميلك شيك شوكولاتة" data-price="80">
         <img
             class="flavor-img"
-            src="images/milkshakes/chocolate.jpeg"
+            src="chocolate.jpeg"
         />
         <h3>🍫 ميلك شيك شوكولاتة</h3>
         <p>شوكولاتة غنية وطعم كريمي يبرد القلب.</p>
@@ -1567,7 +1567,7 @@ function placeOrderNow({ name, daire, block, pay }) {
 
   document.getElementById("turkishBtn").addEventListener("click", () => {
     // Turkish = load alternate HTML
-    window.location.href = "./tr.html"; // change to your Turkish file path
+    window.location.href = "./tr"; // change to your Turkish file path
   });
 
   document.querySelector('.hero-cta').addEventListener('click', () => {
@@ -1615,7 +1615,7 @@ document.getElementById('closeCart').onclick = () => {
 /* language toggle next to cart */
 const langBtn = document.getElementById("langToggle");
 langBtn.textContent = "Türkçe";
-langBtn.onclick = () => window.location.href = "./tr.html";
+langBtn.onclick = () => window.location.href = "./tr";
 
 
 
