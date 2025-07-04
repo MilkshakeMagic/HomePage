@@ -1427,7 +1427,7 @@ function goToStep(n){
       msg += "%0ATeşekkür ederim!";
 
       window.open(`https://wa.me/${phoneNumber}?text=${msg}`, "_blank");
-
+      window.location.href = `https://wa.me/${phoneNumber}?text=${msg}`;
       drawer.classList.remove("open"); // Sepeti kapat
     }
 
