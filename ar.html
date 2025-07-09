@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"> -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/css/lightbox.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+  <meta property="og:title" content="ميلك شيك ماجيك - نكهات لذيذة ومنعشة!" />
+  <meta property="og:description" content="اطلب الميلك شيك المفضل لديك من بلوك 9، شقة 151. التوصيل مجاني داخل كريستال شهير!" />
+  <meta property="og:image" content="https://i.imgur.com/bsGQocm.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://milkshakemagic.github.io/HomePage/ar" />
+  <meta property="og:type" content="website" />
+
+  
+  <title>Milkshake Magic!</title>
+  <style>
+    /* ====== Base styling ====== */
+    :root {
+      --pink: #ff69b4;
+      --light-pink: #ffe4e1;
+      --hot-pink: #ff1493;
+      --bg: #fff0f5;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+.flavor-img {
+  max-width: 100%;
+  height: auto;
+  cursor: zoom-in;
+}
+    
+
+
+
+.lightbox a.lb-prev,
+.lightbox a.lb-next {
+  opacity: 1 !important;          /* always fully visible */
+  visibility: visible !important; /* prevent any hidden state */
+  transition: none !important;    /* remove fade‑in delay */
+}
+
+
+    /* 🌐 Language‑chooser styles (add inside <style>) */
+.lang-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.lang-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.lang-box {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 8px 20px var(--shadow);
+}
+
+.lang-box h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: var(--hot-pink);
+}
+
+.lang-box button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  background: var(--pink);
+  color: #fff;
+}
+
+.lang-box button:hover {
+  background: var(--hot-pink);
+}
+
+
+
+
+header {
+  position: relative;
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+  overflow: hidden; /* ensures video stays inside */
+}
+
+
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.logo-link {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo {
+  height: 50px;
+  width: auto;
+  display: block;
+}
+
+/* Adjust cart button so it doesn't clash with logo */
+.cart-btn {
+  flex: 0 0 auto;
+  background: var(--hot-pink);
+  border: none;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  box-shadow: 0 4px 8px var(--shadow);
+  transition: background 0.3s ease;
+}
+
+.cart-btn:hover {
+  background: #ff43a5;
+}
+
+/* Hero content should now take the remaining space */
+.hero-content {
+  flex: 1 1 100%;
+  max-width: 600px;
+  margin: 20px auto 0;
+  background: rgba(255, 105, 180);
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(255, 20, 147, 0.4);
+  text-align: center;
+  padding: 40px 30px 30px;
+  color: white;
+  /* font-family: 'Comic Neue', cursive, sans-serif; */
+  font-family: Almarai;
+}
+
+
+
+
+
+
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Start hidden */
+.zoom-hint {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.zoom-hint .tap-gif {
+  width: 130px; /* Bigger GIF */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.zoom-hint .hint-text {
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: 14px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+
+.lightbox .lb-outerContainer {
+  margin-top: 10px;  /* move everything up */
+}
+
+.lightbox .lb-image {
+  transform: translateY(-10px); /* fine tune the image only */
+}
+
+
+@media (min-width: 768px) {
+  .hero-content {
+    flex: 1 1 auto;
+    margin: 0;
+  }
+}
+
+
+
+
+
+.zoom-hint .tap-gif {
+  width: 130px; /* Bigger GIF */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+  #loadingOverlay {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff69b4;
+  z-index: 99999;
+  user-select: none;
+}
+
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.loader {
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+/* Simple pulse animation */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+
+    body {
+      margin: 0;
+      /* font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif; */
+      font-family: Almarai;
+      background: var(--bg);
+      color: #333;
+    }
+
+
+        .hero-cta {
+    margin-top: 20px;
+    background: var(--hot-pink);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(255, 20, 147, 0.6);
+    transition: background 0.3s ease;
+    }
+
+    .hero-cta:hover {
+    background: #e0127a;
+    }
+
+    .tagline {
+    font-style: italic;
+    margin-top: 10px;
+    font-size: 1.1rem;
+    color: #ff3399;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+    }
+
+  .scroll-down {
+    margin-top: 40px;
+    font-size: 1.3rem;
+    animation: bounce 2s infinite;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+    text-align: center;     /* Add this */
+    width: 100%;            /* Make it full width */
+    user-select: none;
+  }
+
+    @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+    }
+
+
+    header {
+  position: relative;
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+  overflow: hidden;
+  z-index: 100;  /* ensures video stays inside */
+}
+
+    
+
+    header h1,
+    header p {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    
+    header h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    /* Cart button top‑right */
+    .cart-btn {
+    position: fixed; /* changed from absolute */
+    top: 20px;
+    right: 20px;
+    background: var(--hot-pink);
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 4px 8px var(--shadow);
+    z-index: 999; /* keep it above other elements */
+    }
+
+
+    .cart-btn span {
+      background: #fff;
+      color: var(--hot-pink);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    /* Main sections */
+    section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h2 {
+      color: var(--hot-pink);
+      font-size: 2rem;
+    }
+
+    .about {
+      background: var(--light-pink);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    /* Menu grid */
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .flavor {
+      flex: 1 1 calc(50% - 20px);
+      background: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px var(--shadow);
+      position: relative;
+    }
+
+    /* ===== FLOATING MILK-BOTTLE BACKGROUND ===== */
+    .floating-bottles{
+    position:fixed;
+    inset:0;                 /* full-screen */
+    overflow:hidden;
+    pointer-events:none;     /* never block clicks */
+    z-index: -100;               /* behind everything */
+    }
+
+    .floating-bottles img{
+    position:absolute;
+    width:80px;              /* tweak size here */
+    opacity:.7;              /* a little translucent */
+    animation:float linear infinite;
+    }
+
+    @keyframes float{
+    0%   {transform:translateY(110vh) rotate(0deg);}
+    100% {transform:translateY(-120vh) rotate(360deg);}
+    }
+
+
+    .flavor h3 {
+      margin-top: 0;
+      color: var(--pink);
+    }
+
+    .price {
+      font-weight: bold;
+      color: var(--hot-pink);
+    }
+
+    .add-btn {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      background: var(--hot-pink);
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Contact block */
+    .contact {
+      background: var(--light-pink);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    a {
+      color: var(--hot-pink);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    /* ====== Cart drawer ====== */
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -100vw; /* hidden by default */
+      width: 400px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -4px 0 12px var(--shadow);
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+    }
+        .step {            /* common step wrapper */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    }
+
+    #btnBack { margin-right: 10px; }   /* just a little spacing */
+    /* ====== Fancy Progress Bar ====== */
+/* ===== Fancy Progress Bar v2 ===== */
+.progress-container{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:12px 0;
+}
+
+.progress-track{
+  position:relative;
+  width:100%;
+  max-width:360px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  height:64px;
+}
+
+/* --- background line --- */
+.progress-line{
+  position:absolute;
+  top:30px;                 /* midway through the dots */
+  left:14%;
+  width:72%;
+  height:4px;
+  background:rgba(255,255,255,.3);
+  border-radius:2px;
+  z-index:0;
+  overflow:hidden;
+}
+.progress-line .fill{
+  height:100%;
+  width:0%;
+  background:#fff;
+  transition:width .4s ease;
+  border-radius:2px;
+}
+
+/* --- each step wrapper --- */
+.progress-step{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  flex:1;
+  z-index:1;
+}
+
+/* base dot */
+.dot{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  font-weight:bold;
+  font-size:1rem;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  transition:all .3s ease;
+  background:var(--hot-pink);        /* default = completed style */
+  color:#fff;
+}
+
+/* completed (left-side) look is the base hot-pink dot */
+.progress-step.completed .dot{
+  transform:scale(1);
+  box-shadow:0 0 12px rgba(255,20,147,.5);
+}
+
+/* current step: white with pink ring & bigger glow */
+.progress-step.current .dot{
+  background:#fff;
+  color:var(--hot-pink);
+  border:3px solid var(--hot-pink);
+  transform:scale(1.25);
+  box-shadow:0 0 16px rgba(255,255,255,.8),0 0 18px rgba(255,20,147,.6);
+}
+
+/* step labels */
+.progress-step span{
+  margin-top:6px;
+  font-size:.85rem;
+  font-weight:600;
+  color:#fff;
+  text-shadow:0 0 3px rgba(0,0,0,.35);
+}
+
+
+
+    .cart-drawer.open {
+      right: 0;
+    }
+
+    .cart-header {
+      background: var(--hot-pink);
+      color: #fff;
+      padding: 20px;
+      font-size: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 8px;
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .cart-footer {
+      padding: 20px;
+      margin: -15px;
+      
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: var(--pink);
+      border: none;
+      color: #fff;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .added-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--hot-pink);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px var(--shadow);
+    font-weight: bold;
+    font-size: 1rem;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    }
+
+    .added-message.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(10px);
+    }
+
+    .about-block {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    }
+
+    .about-block img {
+    border-radius: 12px;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    }
+
+    .about-block p {
+    flex: 1;
+    }
+
+    .flavor-img {
+    width: 100%;
+    height: 380px;          /* keeps row heights equal */
+    object-fit: cover;      /* crops nicely */
+    border-radius: 10px;
+    margin-bottom: 10px;    /* little gap above the title */
+    }
+
+.cart-info {
+  background: var(--light-pink);
+  padding: 20px;
+  margin: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(255,105,180,0.2);
+}
+
+.cart-info label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: 600;
+  color: var(--hot-pink);
+}
+
+.cart-info input,
+.cart-info select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ffb6c1;
+  background: white;
+  transition: border-color 0.3s ease;
+}
+
+.cart-info input:focus,
+.cart-info select:focus {
+  outline: none;
+  border-color: var(--hot-pink);
+  box-shadow: 0 0 5px rgba(255,105,180,0.3);
+}
+
+/* ===== Generic button hover (applies to ANY <button>) ===== */
+button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+button:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* ----- Specific colour tweaks per button type ----- */
+
+/* 1️⃣ Hero CTA */
+.hero-cta:hover {
+  background: #e0127a;                         /* already had this */
+  box-shadow: 0 8px 16px rgba(224,18,122,0.5); /* beefier glow */
+}
+
+/* 2️⃣ Cart icon (top-right) */
+.cart-btn:hover {
+  background: #ff43a5;                         /* slightly brighter pink */
+}
+
+/* 3️⃣ Product “Add” buttons */
+.add-btn:hover {
+  background: #ff43a5;
+}
+
+/* 4️⃣ Drawer navigation buttons */
+.checkout-btn:hover {
+  background: #ff2d97;
+}
+
+/* 5️⃣ Qty +/- pills in cart */
+.qty-btn {
+  background: var(--light-pink);
+  border: none;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.qty-btn:hover {
+  background: var(--pink);
+  color: #fff;
+  transform: scale(1.15);
+}
+
+/* === WhatsApp link hover === */
+.contact a{
+  position: relative;
+  color: var(--hot-pink);
+  font-weight: bold;
+  text-decoration: none;  
+  transition: color 0.25s ease;
+}
+
+.contact a::after{        /* little arrow that slides in */
+  content: "➜";
+  position: absolute;
+  right: -18px;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.contact a:hover{
+  color: #e0127a;         /* brighter pink on hover */
+}
+
+
+
+.contact a:hover::after{
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+/* Hero content wrapper */
+.hero-content {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 60px 20px 40px;
+  background: rgba(255, 105, 180,0.7); /* soft pink overlay */
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(255, 20, 147, 0.4);
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #fff;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.hero-content .tagline {
+  font-size: 1.15rem;
+  line-height: 1.4;
+  margin-bottom: 25px;
+  color: #fff;
+  font-style: normal;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-cta {
+  font-size: 1.4rem;
+  padding: 14px 30px;
+  border-radius: 35px;
+  box-shadow: 0 8px 20px rgba(255, 20, 147, 0.6);
+}
+
+.trust-text {
+  margin-top: 15px;
+  font-size: 1rem;
+  color: #ffd6e8;
+  font-weight: 600;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Scroll down */
+.scroll-down {
+  margin-top: 40px;
+  font-size: 1.3rem;
+  animation: bounce 2s infinite;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
+
+/* Responsive */
+
+
+.logo-container {
+  position: fixed;
+  top: 10px;      /* small padding from top */
+  left: 10px;     /* small padding from left */
+  z-index: 10000; /* above everything */
+  background: rgba(255, 255, 255, 0.8); /* optional white semi-transparent bg for contrast */
+  border-radius: 8px;                  /* optional rounded corners */
+  padding: 5px 10px;                   /* optional padding */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.logo-container img {
+  height: 50px;
+  width: auto;
+  display: block;
+  user-select: none;
+}
+
+
+#heroVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 1;
+  border-bottom: 3px solid white;
+}
+
+
+.lang-btn {
+  position: fixed;          /* same positioning mode as cart button */
+  top: 20px;
+  right: 165px;             /* ← tweak this gap so the buttons sit side‑by‑side */
+  background: #fff;
+  color: var(--hot-pink);
+  padding: 10px 15px;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 1rem;
+  box-shadow: 0 4px 8px var(--shadow);
+  cursor: pointer;
+  z-index: 999;             /* keep above video/header */
+}
+
+
+
+
+@keyframes cartGlow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--hot-pink); }
+  50%      { box-shadow: 0 0 12px 6px var(--hot-pink); }
+}
+
+.cart-btn.glow {
+  animation: cartGlow 1s ease-out 3;   /* 3 pulses then stop */
+}
+
+
+.cart-info {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  gap: 6px;
+}
+
+
+
+.input-invalid {
+  border: 2px solid #e53935;
+  box-shadow: 0 0 4px 1px #e5393580;
+  outline: none;
+}
+
+.error-msg {
+  color: #e53935;
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+  display: none;
+}
+
+.input-invalid + .error-msg {
+  display: block;
+}
+
+.cart-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;             /* a bit more space between buttons */
+  padding: 10px 16px;
+  margin: 1px    /* more padding around the footer */
+}
+
+.cart-footer .checkout-btn {
+  width: auto;
+  min-width: 130px;      /* bigger minimum width */
+  font-size: 1.1rem;     /* larger font size */
+  padding: 12px 28px;    /* more padding for a bigger button */
+  border-radius: 10px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cart-footer .checkout-btn:hover {
+  filter: brightness(0.9);
+}
+
+
+#btnNext {
+  display: block;            /* make it block-level */
+  width: 100%;               /* full width of its container */
+  max-width: 400px;          /* optional max width to avoid too wide on large screens */
+  font-size: 1.5rem;         /* big text */
+  padding: 16px 0;           /* big vertical padding, zero horizontal to fill width */
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+
+    /* Small screens */
+  @media (max-width: 600px) {
+    .cart-drawer {
+      width: 100%;       /* full width on mobile */
+      right: -100%;
+    }
+
+
+}
+
+  
+@media (max-width: 768px) {
+  .lightbox .lb-outerContainer {
+    margin-top: 50px !important;
+  }
+
+  .added-message {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--hot-pink);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px var(--shadow);
+    font-weight: bold;
+    font-size: 1rem;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    }
+
+
+
+
+    
+
+    .flavor-img{
+      width: 100%;
+      height: 200px;
+      object-fit: cover;      /* crops nicely */
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .cart-drawer.open {
+      right: 0;
+
+    
+    }
+    
+  .cart-drawer.open ~ header .logo-container {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+
+  
+  
+
+  header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh; /* fill the screen */
+    padding: 20px;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 16px;
+  }
+
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+    margin-top: 8px;
+  }
+
+  .hero-cta {
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 25px;
+    margin-top: 15px;
+  }
+
+  .scroll-down {
+    font-size: 1rem;
+    margin-top: 25px;
+  }
+}
+
+
+
+
+
+
+
+  </style>
+</head>
+<body class="no-scroll">
+  <div id="langChooser" class="lang-overlay">
+  <div class="lang-box">
+    <h2>اختر اللغة · Dil Seçiniz</h2>
+    <button id="arabicBtn">العربية</button>
+    <button id="turkishBtn">Türkçe</button>
+  </div>
+</div>
+<div id="loadingOverlay">
+  <div class="loader">
+🥛⏳ جاري تحضير الميلك شيك...
+  </div>
+</div>
+<a href="https://milkshakemagic.github.io/HomePage/ar" class="logo-container" aria-label="Go to homepage">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Milkshake%21_2005.svg/2560px-Milkshake%21_2005.svg.png" alt="Milkshake Magic Logo" class="logo" />
+
+  <!-- <img src="h.png" alt="Milkshake Magic Logo" class="logo" /> -->
+  </a>
+
+  <header id="hero">
+    <div class="header-inner">
+      <!-- Removed logo from here -->
+      <video autoplay muted loop playsinline id="heroVideo">
+        <source src="pink_milkshake.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      
+      <button class="cart-btn" id="openCart" aria-label="Open shopping cart">
+        🛒 العربة <span id="cartCount">0</span>
+      </button>
+      <button class="lang-btn" id="langToggle" aria-label="Switch site language">Türkçe</button>
+
+      <div class="hero-content">
+        <h1><strong>إنتعاش في كل كوب</strong></h1>
+        <p class="tagline">
+            🥤 طازج، 😋 كريمي، ومليء بالنكهات 🍓🍫 التي تعيد لك انتعاش اليوم!<br />
+            ✨ جودة عالية وسعر ولا أحلى<br/>
+            🚚 اطلب الآن واستمتع بتوصيل سريع ومجاني<br />
+            
+        </p>
+        <button class="hero-cta" aria-label="Order your milkshake now">أطلب الأن !   🛒</button>
+        <p class="trust-text">⭐⭐⭐⭐⭐</p>
+      </div>
+
+      <div class="scroll-down" aria-hidden="true">⬇️ مرر الشاشة لتصفح النكهات</div>
+    </div>
+  </header>
+
+
+
+
+  <!-- About Section -->
+    <section class="about">
+    <h2>من نكون؟</h2>
+    <div class="about-block">
+        <img src="https://thumbs.dreamstime.com/b/portrait-chef-child-cook-hat-make-milk-shake-smoothie-cooking-home-kid-boy-preparing-food-vegetable-fruits-322569020.jpg"/>
+      <p>
+      مرحبًا بكم في <strong>ميلك شيك ماجيك</strong> — علامة عائلية انطلقت من مطبخ بيتنا بحب وطموح.  
+      كل شيء بدأ كهواية بيني وبين أختي، كنا نستمتع بصنع الميلك شيك في البيت دون أن نفكر في تقديمه للناس.  
+      بعد فترة، أدركنا أن طعمه مميز ويستحق المشاركة،  
+      فقلنا: "ليش ما نخلّي الجميع يذوقه؟" — ومن هنا بدأت رحلتنا.
+      نحضّر كل كوب في المنزل، باستخدام مكونات طازجة وسُمك مثالي، ونهتم بكل تفصيلة.  
+      نفخر بأسعارنا المناسبة، مع <strong>توصيل مجاني</strong>، ونجعل الجودة أولويتنا دائمًا.  
+      هدفنا؟ مش بس طعم لذيذ — بل إحساس بالانتعاش والسعادة مع كل طلب.
+      </p>
+    </div>
+<!---->    <div class="floating-bottles" id="floatingBottles"></div>
+    
+    </section>
+
+
+  <!-- Menu Section -->
+<section>
+  <h2 class="menu1">المنيو</h2>
+  <div class="menu">
+
+    <!-- Milkshake 1 -->
+    <div class="flavor" data-name="ميلك شيك موز وشوكولاتة" data-price="100">
+      <div class="image-container">
+        <a href="banana.jpeg"
+           data-lightbox="shakes"
+           data-title="🍌🍫 ميلك شيك موز وشوكولاتة">
+          <img class="flavor-img"
+               src="banana.jpeg"
+               alt="ميلك شيك موز وشوكولاتة" />
+          <div class="zoom-hint">
+            <img src="tap-finger.gif" alt="Tap here" class="tap-gif" />
+            <div class="hint-text">اضغط للتكبير</div>
+          </div>
+        </a>
+      </div>
+      <h3>🍌🍫 ميلك شيك موز وشوكولاتة</h3>
+      <p>مزيج لذيذ من الموز الطازج والشوكولاتة، ناعم ومشبع.</p>
+      <p class="price">100 ₺</p>
+      <button class="add-btn">أضف</button>
+    </div>
+
+    <!-- Milkshake 2 -->
+    <div class="flavor" data-name="ميلك شيك فراولة" data-price="120">
+      <div class="image-container">
+        <a href="strawberry.jpeg"
+           data-lightbox="shakes"
+           data-title="🍓 ميلك شيك فراولة">
+          <img class="flavor-img"
+               src="strawberry.jpeg"
+               alt="ميلك شيك فراولة" />
+          <div class="zoom-hint">
+            <img src="tap-finger.gif" alt="Tap here" class="tap-gif" />
+            <div class="hint-text">اضغط للتكبير</div>
+          </div>
+        </a>
+      </div>
+      <h3>🍓 ميلك شيك فراولة</h3>
+      <p>فراولة طازجة، نكهة حلوة، وقوام كريمي منعش.</p>
+      <p class="price">120 ₺</p>
+      <button class="add-btn">أضف</button>
+    </div>
+
+    <!-- Milkshake 3 -->
+    <div class="flavor" data-name="ميلك شيك آيس لاتيه" data-price="90">
+      <div class="image-container">
+        <a href="ice_latte.jpeg"
+           data-lightbox="shakes"
+           data-title="🧋 ميلك شيك آيس لاتيه">
+          <img class="flavor-img"
+               src="ice_latte.jpeg"
+               alt="ميلك شيك آيس لاتيه" />
+          <div class="zoom-hint">
+            <img src="tap-finger.gif" alt="Tap here" class="tap-gif" />
+            <div class="hint-text">اضغط للتكبير</div>
+          </div>
+        </a>
+      </div>
+      <h3>🧋 ميلك شيك آيس لاتيه</h3>
+      <p>قهوة باردة ممزوجة بالحليب، ناعمة ومنعشة لعشاق الكافيين.</p>
+      <p class="price">90 ₺</p>
+      <button class="add-btn">أضف</button>
+    </div>
+
+    <!-- Milkshake 4 -->
+    <div class="flavor" data-name="ميلك شيك شوكولاتة" data-price="80">
+      <div class="image-container">
+        <a href="chocolate.jpeg"
+           data-lightbox="shakes"
+           data-title="🍫 ميلك شيك شوكولاتة">
+          <img class="flavor-img"
+               src="chocolate.jpeg"
+               alt="ميلك شيك شوكولاتة" />
+          <div class="zoom-hint">
+            <img src="tap-finger.gif" alt="Tap here" class="tap-gif" />
+            <div class="hint-text">اضغط للتكبير</div>
+          </div>
+        </a>
+      </div>
+      <h3>🍫 ميلك شيك شوكولاتة</h3>
+      <p>شوكولاتة غنية وطعم كريمي يبرد القلب.</p>
+      <p class="price">80 ₺</p>
+      <button class="add-btn">أضف</button>
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- Contact Section -->
+  <section class="contact">
+    <h2>التواصل والطلب</h2>
+    <p>يمكنك أيضًا مراسلتنا مباشرةً عبر واتساب! 📱</p>
+      <a href="https://wa.me/905514808648">اضغط هنا للطلب عبر واتساب</a>
+
+    <p>💸 الدفع عند الاستلام أو عن طريق تحويل بنكي</p>
+    <p>🚚 توصيل <strong>مجاني</strong> لباب بيتك</p>
+  </section>
+
+  <footer>
+    &copy;  © 2025 ميلك شيك ماجيك — مشروع عائلي بكل حب 💕
+  </footer>
+
+  <!-- Cart Drawer -->
+<!-- Cart Drawer (multi-step) -->
+    <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <!-- 🌟 Fancy Progress Bar -->
+<!-- 🌟 Milkshake Progress Bar v2 -->
+      <div class="progress-container">
+        <div class="progress-track">
+          <div class="progress-line">
+            <div class="fill" id="progressFill"></div>
+          </div>
+
+          <!-- current step starts on Cart -->
+          <div class="progress-step step-1 current">
+            <div class="dot">1</div>
+            <span>العربة</span>
+          </div>
+
+          <div class="progress-step step-2">
+            <div class="dot">2</div>
+            <span>تفاصيل الطلب</span>
+          </div>
+        </div>
+      </div>
+
+
+        <button id="closeCart"
+                style="background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;">✖️</button>
+    </div>
+
+    <!-- ---------- STEP 1 : CART SUMMARY ---------- -->
+<!-- ---------- STEP 1 : CART SUMMARY ---------- -->
+    <div class="step step-1" id="step1">
+    <div class="cart-content" id="cartItems"></div>
+    <div id="cartTotal"
+        style="margin: 20px 20px 10px 20px;
+                padding: 10px;
+                border-radius: 10px;
+                background: #ffe4e1;
+                font-weight: bold;
+                font-size: 1.2rem;
+                color: var(--hot-pink);
+                text-align: right;
+                box-shadow: 0 2px 6px rgba(255,105,180,0.2);">
+    المجموع: 0 ₺
+    </div>
+    <div class="cart-footer">
+        <button class="checkout-btn" id="btnNext">التالي ➜</button>
+    </div>
+    </div>
+
+    <div class="cart-step" id="cartStep2">
+    <!-- ---------- STEP 2 : CUSTOMER DETAILS ---------- -->
+<!-- ---------- STEP 2 : CUSTOMER DETAILS ---------- -->
+    <div class="step step-2" id="step2" style="display:none">
+    <div class="cart-info">
+        <p class="info-message">قاربنا على الانتهاء! الرجاء إدخال بياناتك 👇</p>
+        <label for="nameInput">الاسم</label>
+        <input type="text" id="nameInput" required />
+        <span class="error-msg"></span>
+
+        <label for="daireInput">رقم الشقة</label>
+        <input type="text" id="daireInput" required />
+        <span class="error-msg"></span>
+
+        <label for="blockInput" style="margin-top:10px;">رقم المبنى (البلوك)</label>
+        <input type="text" id="blockInput" required />
+        <span class="error-msg"></span>
+
+        <label style="margin-top:10px;">طريقة الدفع</label>
+        <select id="paymentMethod" required>
+        <option value="" disabled selected> ...اختر</option>
+        <option value="حوالة بنكية">حوالة بنكية</option>
+        <option value="كاش">كاش</option>
+        </select>
+    </div>
+
+    <!-- ✅ total bar INSIDE step-2 -->
+      <div id="cartTotal2" style="margin: 1px 20px 10px 20px;
+                      padding: 10px;
+                      border-radius: 10px;
+                      background: #ffe4e1;
+                      font-weight: bold;
+                      font-size: 1.2rem;
+                      color: var(--hot-pink);
+                      text-align: right;
+                      box-shadow: 0 2px 6px rgba(255,105,180,0.2);">المجموع : ₺ 0</div>
+    <div class="cart-footer">
+        <button class="checkout-btn" id="btnBack" style="background:#aaa;">← عودة</button>
+        <button class="checkout-btn" id="btnPlace">تأكيد الطلب 🟢</button>
+    </div>
+    </div><!-- /step-2 -->
+
+
+  <div class="added-message" id="addedMessage">تمت الإضافة إلى العربة! 🎉</div>
+  <script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox-plus-jquery.min.js"></script>
+  <script>
+    /* ========== Cart Logic ========== */
+/* ---------- SETUP ---------- */
+    const cart       = {};                 // { itemName: {price, qty} }
+    const cartItems  = document.getElementById('cartItems');
+    const cartCount  = document.getElementById('cartCount');
+    const phoneNumber= '+905514808648';    // your phone
+
+    const drawer     = document.getElementById('cartDrawer');
+    const step1      = document.getElementById('step1');
+    const step2      = document.getElementById('step2');
+    const progressEl = document.getElementById('checkoutProgress');
+    const DELIVERY_KEY = '🚚 التوصيل (مجاني)';
+    /* ---------- CART BADGE ---------- */
+    function updateBadge() {
+      // 1) حساب عدد العناصر الحقيقية (بدون التوصيل)
+      const totalQty = Object.entries(cart)
+        .filter(([key]) => key !== DELIVERY_KEY)  // استثناء التوصيل
+        .reduce((a, [, item]) => a + item.qty, 0);
+
+      // 2) تحديث رقم العربة (بدون إظهار 0)
+      cartCount.textContent = totalQty;  // يظهر 0 لو ما في عناصر
+
+
+      // 3) إضافة / إزالة تأثير اللمعان
+      const cartBtn = document.getElementById('openCart');
+      if (totalQty === 1) {
+        cartBtn.classList.add('glow');
+      } else {
+        cartBtn.classList.remove('glow');
+      }
+    }
+
+    /* ---------- RENDER CART LIST ---------- */
+
+
+    function syncDeliveryItem() {
+      // تأكد من وجود صف توصيل واحد فقط إذا كان هناك أي منتج آخر
+      const realQty = Object.entries(cart)
+        .filter(([key]) => key !== DELIVERY_KEY)
+        .reduce((sum, [, obj]) => sum + obj.qty, 0);
+
+      if (realQty >= 1) {
+        cart[DELIVERY_KEY] ??= { price: 0, qty: 1 };
+      } else {
+        delete cart[DELIVERY_KEY];
+      }
+    }
+
+    function renderCart() {
+      syncDeliveryItem();  // تحديث صف التوصيل
+
+      cartItems.innerHTML = '';
+
+      if (!Object.keys(cart).length) {
+        cartItems.innerHTML = `
+          <div style="text-align: center; padding: 40px 0; margin: 100px">
+            <p style="font-size: 24px; font-weight: bold;">عربتك خالية 🫤</p>
+          </div>
+        `;
+      
+      } else {
+        // خزن التوصيل مؤقتاً
+        let deliveryItem = null;
+
+        // عرض كل العناصر عدا التوصيل أولًا
+        for (const [name, { price, qty }] of Object.entries(cart)) {
+          if (name === DELIVERY_KEY) {
+            deliveryItem = { name, price, qty };
+            continue;
+          }
+
+          cartItems.insertAdjacentHTML(
+            'beforeend',
+            `<div class="cart-item">
+              <span>${name}</span>
+              <div>
+                <button class="qty-btn" data-a="-" data-name="${name}">➖</button>
+                <span style="margin:0 6px">${qty}</span>
+                <button class="qty-btn" data-a="+" data-name="${name}">➕</button>
+              </div>
+              <span>${price * qty} ₺</span>
+            </div>`
+          );
+        }
+
+        // عرض صف التوصيل في الأسفل لو موجود
+        if (deliveryItem) {
+          cartItems.insertAdjacentHTML(
+            'beforeend',
+            `<div class="cart-item">
+              <span>${deliveryItem.name}</span>
+              <span style="margin-left:auto;">${deliveryItem.price} ₺</span>
+            </div>`
+          );
+        }
+      }
+
+      updateCartTotal();
+    }
+
+
+
+
+
+
+        // 🔄 refresh totals any time the user flips IBAN ↔ Cash
+    document.addEventListener('change', e => {
+    if (e.target.id === 'paymentMethod') updateCartTotal();
+    });
+
+    /* ---------- STEP SWITCHING ---------- */
+/* utility: mark steps */
+function markSteps(currentIdx){
+  document.querySelectorAll('.progress-step').forEach((el, i)=>{
+    el.classList.remove('current','completed');
+    if(i < currentIdx)         el.classList.add('completed'); // left side
+    else if(i === currentIdx)  el.classList.add('current');   // you are here
+  });
+}
+
+/* STEP SWITCHER -------------------------------------------------- */
+function goToStep(n){
+  // show / hide panes
+  if(n===1){ step1.style.display='flex';  step2.style.display='none'; }
+  else      { step1.style.display='none'; step2.style.display='flex'; }
+
+  /* 0-based index for markSteps */
+  markSteps(n-1);
+
+  /* fill bar (only two steps, so 0 % or 100 %) */
+  document.getElementById('progressFill').style.width = n===2 ? '100%' : '0%';
+}
+
+
+
+
+    /* ---------- OPEN / CLOSE DRAWER ---------- */
+    document.getElementById('openCart').onclick = ()=>{ renderCart(); goToStep(1); drawer.classList.add('open'); };
+    document.getElementById('closeCart').onclick= ()=> drawer.classList.remove('open');
+
+    /* ---------- QTY BUTTONS ---------- */
+    cartItems.addEventListener('click',e=>{
+    const btn=e.target.closest('.qty-btn'); if(!btn) return;
+    const name=btn.dataset.name;
+    if(btn.dataset.a==='+' ) cart[name].qty++;
+    if(btn.dataset.a==='-' ) cart[name].qty--;
+    if(cart[name].qty<=0) delete cart[name];
+    updateBadge(); renderCart();
+    });
+
+    /* ---------- ADD-TO-CART ---------- */
+    document.querySelectorAll('.add-btn').forEach(b=>b.onclick=e=>{
+    const box=e.target.closest('.flavor');
+    const name=box.dataset.name, price=+box.dataset.price;
+    cart[name] ??= {price,qty:0};  cart[name].qty++;
+    updateBadge(); if(drawer.classList.contains('open')) renderCart();
+
+    const pop=document.getElementById('addedMessage');
+    pop.classList.add('show'); clearTimeout(pop._t);
+    pop._t=setTimeout(()=>pop.classList.remove('show'),1500);
+    });
+
+    /* ---------- STEP 1 ➜ NEXT ---------- */
+    document.getElementById('btnNext').onclick = () => {
+        if (!Object.keys(cart).length) {
+            // Optional: show a custom message on the page instead of alert
+            // document.getElementById('cartErrorMsg').textContent = 'عربتك خالية!';
+            return;
+        }
+        goToStep(2);
+    };
+
+    /* ---------- STEP 2 ← BACK ---------- */
+    document.getElementById('btnBack').onclick = ()=> goToStep(1);
+
+    /* ---------- PLACE ORDER ---------- */
+function markInvalid(el, message) {
+  el.classList.add("input-invalid");
+  const msgEl = el.nextElementSibling;        // assumes the <span> is right after the input
+  if (msgEl && msgEl.classList.contains("error-msg")) {
+    msgEl.textContent = message;
+  }
+}
+
+function clearInvalid(el) {
+  el.classList.remove("input-invalid");
+  const msgEl = el.nextElementSibling;
+  if (msgEl && msgEl.classList.contains("error-msg")) {
+    msgEl.textContent = "";
+  }
+}
+
+/* ---------- PLACE ORDER ---------- */
+
+/* ---------- helpers ---------- */
+function markInvalid(el, msg) {
+  el.classList.add("input-invalid");
+  const s = el.nextElementSibling;
+  if (s && s.classList.contains("error-msg")) s.textContent = msg;
+}
+function clearInvalid(el) {
+  el.classList.remove("input-invalid");
+  const s = el.nextElementSibling;
+  if (s && s.classList.contains("error-msg")) s.textContent = "";
+}
+
+/* ---------- regex rules ---------- */
+const nameRegex   = /^[\p{L}\s]+$/u;
+const numberRegex = /^[0-9]+$/;
+
+/* ---------- click handler for the green button ---------- */
+document.getElementById("btnPlace").onclick = () => {
+  // 1) grab inputs
+  const nameInput  = document.getElementById("nameInput");
+  const daireInput = document.getElementById("daireInput");
+  const blockInput = document.getElementById("blockInput");
+  const paySelect  = document.getElementById("paymentMethod");
+
+  // 2) validate
+  let ok = true;
+  if (!nameRegex.test(nameInput.value.trim())) { markInvalid(nameInput,  "الاسم يجب أن يكون حروفًا فقط"); ok = false; } else clearInvalid(nameInput);
+  if (!numberRegex.test(daireInput.value.trim())){ markInvalid(daireInput,"أدخل رقم شقة صحيحًا");        ok = false; } else clearInvalid(daireInput);
+  if (!numberRegex.test(blockInput.value.trim())){ markInvalid(blockInput,"أدخل رقم بلوك صحيحًا");        ok = false; } else clearInvalid(blockInput);
+  if (paySelect.value === "")                    { markInvalid(paySelect, "اختر طريقة الدفع");            ok = false; } else clearInvalid(paySelect);
+
+  if (!ok) {                           // keep user on the form
+    document.querySelector(".input-invalid")?.scrollIntoView({behavior:"smooth", block:"center"});
+    return;
+  }
+
+  // 3) all good → place the order
+  placeOrderNow({
+    name  : nameInput.value.trim(),
+    daire : daireInput.value.trim(),
+    block : blockInput.value.trim(),
+    pay   : paySelect.value
+  });
+};
+
+/* ---------- live re‑validation ---------- */
+["nameInput","daireInput","blockInput"].forEach((id) => {
+  const el = document.getElementById(id);
+  el.addEventListener("input", () => {
+    if (el.classList.contains("input-invalid")) {
+      const re = id === "nameInput" ? nameRegex : numberRegex;
+      if (re.test(el.value.trim())) clearInvalid(el);
+    }
+  });
+});
+document.getElementById("paymentMethod").addEventListener("change",(e)=>{
+  if (e.target.classList.contains("input-invalid") && e.target.value) clearInvalid(e.target);
+});
+
+/* ---------- placeOrderNow sends WhatsApp message ---------- */
+function placeOrderNow({ name, daire, block, pay }) {
+  const phoneNumber = "905514808648";   // ← ضع رقم الواتساب هنا
+  let total = 0;
+  let msg = "مرحبًا! أود طلب:%0A";
+  for (const [prod,{price,qty}] of Object.entries(cart)) {
+    msg += `- ${prod} x${qty} = ${price*qty} ₺%0A`;
+    total += price*qty;
+  }
+  msg += `%0Aرقم الشقة: ${encodeURIComponent(daire)}`;
+  msg += `%0Aبلوك: ${encodeURIComponent(block)}`;
+  msg += `%0Aطريقة الدفع: ${pay}`;
+  msg += `%0Aالمجموع: ₺${total}`;
+  msg += `%0Aالاسم: ${encodeURIComponent(name)}`;
+  msg += "%0AThank you!";
+
+  window.location.href = `https://wa.me/${phoneNumber}?text=${msg}`;
+
+
+  drawer.classList.remove("open");   // close the cart panel
+}
+    
+
+
+
+  </script>
+  <script>
+(() => {
+  const SRC = "https://i.imgur.com/9tKOrNC.png";   // bottle clip-art
+  const COUNT = 18;                                // how many on screen
+  const layer = document.getElementById("floatingBottles");
+
+  for (let i = 0; i < COUNT; i++){
+    const img = document.createElement("img");
+    img.src = SRC;
+
+    // random horizontal spot & size
+    const segmentWidth = 100 / COUNT;
+    const posX = segmentWidth * i + Math.random() * segmentWidth * 0.7; // 70% randomness inside segment
+    img.style.left = posX + "%";
+    img.style.width = 60 + Math.random()*50 + "px";
+
+    // animation timing
+    const dur  = 30 + Math.random()*20; // 30–50 seconds
+            // 18-28 s
+    const delay= -Math.random()*dur;               // start off-screen
+    img.style.animationDuration = dur + "s";
+    img.style.animationDelay    = delay + "s";
+
+    // random initial vertical position
+    img.style.transform = `translateY(${Math.random()*100}vh) rotate(${Math.random()*360}deg)`;
+
+    layer.appendChild(img);
+  }
+})();
+
+
+
+  // Reset scroll position to top immediately on page refresh
+  window.scrollTo(0, 0);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const screenHeight = window.innerHeight;
+
+    // Optional: scroll down 10vh only on small screens
+    if (screenHeight < 600) {
+      const offset = screenHeight * 0.10;
+      window.scrollTo({ top: offset, behavior: "auto" });
+    } else {
+      // Force scroll to top again on big screens
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+  });
+
+/* 🌐 Language‑chooser logic (append after your existing JS) */
+  window.addEventListener("load", () => {
+    const overlay = document.getElementById("loadingOverlay");
+    const langOverlay = document.getElementById("langChooser");
+
+    setTimeout(() => {
+      overlay.style.opacity = "0";
+      setTimeout(() => {
+        overlay.style.display = "none";
+        document.body.classList.remove("no-scroll");
+
+        // ✨ Show language chooser
+        langOverlay.classList.add("show");
+      }, 400); // Keep fade-out smooth
+    }, 800); // ⏱ Faster start: 0.8s instead of 2s
+  });
+
+
+  /* Handle language buttons */
+  document.getElementById("arabicBtn").addEventListener("click", () => {
+    // Arabic = keep current page
+    document.getElementById("langChooser").classList.remove("show");
+  });
+
+  document.getElementById("turkishBtn").addEventListener("click", () => {
+    // Turkish = load alternate HTML
+    window.location.href = "./tr"; // change to your Turkish file path
+  });
+
+  document.querySelector('.hero-cta').addEventListener('click', () => {
+  document.querySelector('.menu1').scrollIntoView({ behavior: 'smooth' });
+});
+
+
+function updateCartTotal() {
+  const baseTotal = Object.values(cart).reduce(
+    (sum, item) => sum + item.qty * item.price,
+    0
+  );
+
+  // Step 1 shows base only
+  document.getElementById('cartTotal').textContent = `المجموع : ₺ ${baseTotal}`;
+
+  // Step 2 may add 10 ₺ if Cash
+  let step2Total = baseTotal;
+  const method = document.getElementById('paymentMethod')?.value;
+
+
+  document.getElementById('cartTotal2').textContent = `المجموع : ₺ ${step2Total}`;
+}
+
+const logo = document.querySelector('.logo-container');
+
+document.getElementById('openCart').onclick = () => {
+  renderCart();
+  goToStep(1);
+  drawer.classList.add('open');
+
+  if (window.innerWidth <= 600) {
+    logo.style.display = 'none';
+  }
+};
+
+document.getElementById('closeCart').onclick = () => {
+  drawer.classList.remove('open');
+
+  if (window.innerWidth <= 600) {
+    logo.style.display = '';
+  }
+};
+
+/* language toggle next to cart */
+const langBtn = document.getElementById("langToggle");
+langBtn.textContent = "Türkçe";
+langBtn.onclick = () => window.location.href = "./tr";
+
+document.addEventListener("DOMContentLoaded", function() {
+  const menu = document.querySelector('.menu');
+  const hints = menu.querySelectorAll('.zoom-hint');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Fade in
+        hints.forEach(hint => {
+          hint.style.opacity = 1;
+        });
+
+        // Wait 3 sec, fade out
+        setTimeout(() => {
+          hints.forEach(hint => {
+            hint.style.opacity = 0;
+          });
+        }, 3000);
+
+        // Stop observing so it happens only once
+        observer.unobserve(menu);
+      }
+    });
+  }, {
+    threshold: 0.3 // Trigger when 30% visible
+  });
+
+  observer.observe(menu);
+});
+
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
