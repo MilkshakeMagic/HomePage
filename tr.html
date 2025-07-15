@@ -31,7 +31,60 @@
       box-sizing: border-box;
     }
 
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
 
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.flavor {
+  margin: auto;
+}
+
+.category-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 0.5fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+
+
+.category-switcher {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  background: #fff;
+  border: 2px solid var(--hot-pink);
+  color: var(--hot-pink);
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100px;
+  transition: 0.3s;
+}
+
+.category-btn.active {
+  background: var(--hot-pink);
+  color: #fff;
+}
+
+.category-btn:hover {
+  transform: scale(1.05);
+}
 
 
 
@@ -210,6 +263,15 @@ header {
     flex: 1 1 auto;
     margin: 0;
   }
+  .category-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 0.5fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+
+  
 }
 
 .zoom-hint .tap-gif {
@@ -393,6 +455,13 @@ header {
       margin-top: 20px;
     }
 
+.menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
+}
+
     .flavor {
       flex: 1 1 calc(50% - 20px);
       background: #fff;
@@ -401,6 +470,17 @@ header {
       box-shadow: 0 4px 8px var(--shadow);
       position: relative;
     }
+    .flavor {
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center; /* ✅ center content inside */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ✅ center horizontally */
+  justify-content: center;
+}
 
     /* ===== FLOATING MILK-BOTTLE BACKGROUND ===== */
     .floating-bottles{
@@ -1033,7 +1113,7 @@ button:hover {
     🥛⏳ Milkshake’ler hazırlanıyor...
   </div>
 </div>
-<a href="https://milkshakemagic.github.io/HomePage/tr" class="logo-container" aria-label="Go to homepage">
+<a href="https://milkshake-magic.github.io/HomePage/tr" class="logo-container" aria-label="Go to homepage">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Milkshake%21_2005.svg/2560px-Milkshake%21_2005.svg.png" alt="Milkshake Magic Logo" class="logo" />
   </a>
 
@@ -1091,86 +1171,109 @@ button:hover {
 
 
   <!-- Menu Section -->
- <section>
+<section>
   <h2 class="menu1">Menü</h2>
+
+  <!-- Category Switcher -->
+  <div class="category-switcher">
+    <div class="category-btn active" data-category="milkshakes">
+      🥤<br>Milkshake
+    </div>
+    <div class="category-btn" data-category="juices">
+      🍹<br>Taze Meyve Suyu
+    </div>
+  </div>
+
   <div class="menu">
-
-    <!-- Chocolate -->
-    <div class="flavor" data-name="Muzlu ve Çikolatalı Milkshake" data-price="100">
-      <div class="image-container">
-        <a href="banana.jpeg"
-           data-lightbox="milkshakes"
-           data-title="🍌🍫 Muzlu ve Çikolatalı Milkshake">
-          <img class="flavor-img" src="banana.jpeg" alt="Muzlu ve Çikolatalı Milkshake" />
-          <div class="zoom-hint">
-            <img src="tap-finger.gif" alt="Tap here" class="tap-gif" />
-            <div class="hint-text">Büyütmek için dokun</div>
-          </div>
-        </a>
+    <!-- Milkshakes -->
+    <div class="category-section" data-category="milkshakes">
+      <!-- Milkshake 1 -->
+      <div class="flavor" data-name="Muzlu ve Çikolatalı Milkshake" data-price="100">
+        <div class="image-container">
+          <a href="banana.jpeg" data-lightbox="milkshakes" data-title="🍌🍫 Muzlu ve Çikolatalı Milkshake">
+            <img class="flavor-img" src="banana.jpeg" alt="Muzlu ve Çikolatalı Milkshake" />
+            <div class="zoom-hint">
+              <img src="tap-finger.gif" alt="Tap here" class="tap-gif" />
+              <div class="hint-text">Büyütmek için dokun</div>
+            </div>
+          </a>
+        </div>
+        <h3>🍌🍫 Muzlu ve Çikolatalı Milkshake</h3>
+        <p>Taze muz ve çikolatanın lezzetli karışımı, yumuşak ve doyurucu.</p>
+        <p class="price">100 ₺</p>
+        <button class="add-btn">Ekle</button>
       </div>
-      <h3>🍌🍫 Muzlu ve Çikolatalı Milkshake</h3>
-      <p>Taze muz ve çikolatanın lezzetli karışımı, yumuşak ve doyurucu.</p>
-      <p class="price">100 ₺</p>
-      <button class="add-btn">Ekle</button>
+
+      <!-- Milkshake 2 -->
+      <div class="flavor" data-name="Çilekli Milkshake" data-price="120">
+        <div class="image-container">
+          <a href="strawberry.jpeg" data-lightbox="milkshakes" data-title="🍓 Çilekli Milkshake">
+            <img class="flavor-img" src="strawberry.jpeg" alt="Çilekli Milkshake" />
+            <div class="zoom-hint">
+              <img src="tap-finger.gif" alt="Tap here" class="tap-gif" />
+              <div class="hint-text">Büyütmek için dokun</div>
+            </div>
+          </a>
+        </div>
+        <h3>🍓 Çilekli Milkshake</h3>
+        <p>Taze çilek, tatlı lezzet ve ferahlatıcı kremamsı kıvam.</p>
+        <p class="price">120 ₺</p>
+        <button class="add-btn">Ekle</button>
+      </div>
+
+      <!-- Milkshake 3 -->
+      <div class="flavor" data-name="Buzlu Latte Milkshake" data-price="90">
+        <div class="image-container">
+          <a href="ice_latte.jpeg" data-lightbox="milkshakes" data-title="🧋 Buzlu Latte Milkshake">
+            <img class="flavor-img" src="ice_latte.jpeg" alt="Buzlu Latte Milkshake" />
+            <div class="zoom-hint">
+              <img src="tap-finger.gif" alt="Tap here" class="tap-gif" />
+              <div class="hint-text">Büyütmek için dokun</div>
+            </div>
+          </a>
+        </div>
+        <h3>🧋 Buzlu Latte Milkshake</h3>
+        <p>Soğuk kahve ve süt karışımı, kafein tutkunları için yumuşak ve ferahlatıcı.</p>
+        <p class="price">90 ₺</p>
+        <button class="add-btn">Ekle</button>
+      </div>
+
+      <!-- Milkshake 4 -->
+      <div class="flavor" data-name="Çikolatalı Milkshake" data-price="80">
+        <div class="image-container">
+          <a href="chocolate.jpeg" data-lightbox="milkshakes" data-title="🍫 Çikolatalı Milkshake">
+            <img class="flavor-img" src="chocolate.jpeg" alt="Çikolatalı Milkshake" />
+            <div class="zoom-hint">
+              <img src="tap-finger.gif" alt="Tap here" class="tap-gif" />
+              <div class="hint-text">Büyütmek için dokun</div>
+            </div>
+          </a>
+        </div>
+        <h3>🍫 Çikolatalı Milkshake</h3>
+        <p>Zengin çikolata ve kremamsı tat, kalbi ferahlatır.</p>
+        <p class="price">80 ₺</p>
+        <button class="add-btn">Ekle</button>
+      </div>
     </div>
 
-    <!-- Strawberry -->
-    <div class="flavor" data-name="Çilekli Milkshake" data-price="120">
-      <div class="image-container">
-        <a href="strawberry.jpeg"
-           data-lightbox="milkshakes"
-           data-title="🍓 Çilekli Milkshake">
-          <img class="flavor-img" src="strawberry.jpeg" alt="Çilekli Milkshake" />
-          <div class="zoom-hint">
-            <img src="tap-finger.gif" alt="Tap here" class="tap-gif" />
-            <div class="hint-text">Büyütmek için dokun</div>
-          </div>
-        </a>
+    <!-- Juices -->
+    <div class="category-section" data-category="juices" style="display: none;">
+      <div class="flavor" data-name="Mango Suyu" data-price="80">
+        <div class="image-container">
+          <a href="mango.png" data-lightbox="mango-only" data-title="🥭 Mango Suyu">
+            <img class="flavor-img" src="mango.png" alt="Mango Suyu" />
+            <div class="zoom-hint">
+              <img src="tap-finger.gif" alt="Tap here" class="tap-gif" />
+              <div class="hint-text">Büyütmek için dokun</div>
+            </div>
+          </a>
+        </div>
+        <h3>🥭 Mango Suyu</h3>
+        <p>Dondurulmuş mango ile hazırlanan %100 doğal ve ferahlatıcı meyve suyu.</p>
+        <p class="price">80 ₺</p>
+        <button class="add-btn">Ekle</button>
       </div>
-      <h3>🍓 Çilekli Milkshake</h3>
-      <p>Taze çilek, tatlı lezzet ve ferahlatıcı kremamsı kıvam.</p>
-      <p class="price">120 ₺</p>
-      <button class="add-btn">Ekle</button>
     </div>
-
-    <!-- Banana -->
-    <div class="flavor" data-name="Buzlu Latte Milkshake" data-price="90">
-      <div class="image-container">
-        <a href="ice_latte.jpeg"
-           data-lightbox="milkshakes"
-           data-title="🧋 Buzlu Latte Milkshake">
-          <img class="flavor-img" src="ice_latte.jpeg" alt="Buzlu Latte Milkshake" />
-          <div class="zoom-hint">
-            <img src="tap-finger.gif" alt="Tap here" class="tap-gif" />
-            <div class="hint-text">Büyütmek için dokun</div>
-          </div>
-        </a>
-      </div>
-      <h3>🧋 Buzlu Latte Milkshake</h3>
-      <p>Soğuk kahve ve süt karışımı, kafein tutkunları için yumuşak ve ferahlatıcı.</p>
-      <p class="price">90 ₺</p>
-      <button class="add-btn">Ekle</button>
-    </div>
-
-    <!-- Oreo -->
-    <div class="flavor" data-name="Çikolatalı Milkshake" data-price="80">
-      <div class="image-container">
-        <a href="chocolate.jpeg"
-           data-lightbox="milkshakes"
-           data-title="🍫 Çikolatalı Milkshake">
-          <img class="flavor-img" src="chocolate.jpeg" alt="Çikolatalı Milkshake" />
-          <div class="zoom-hint">
-            <img src="tap-finger.gif" alt="Tap here" class="tap-gif" />
-            <div class="hint-text">Büyütmek için dokun</div>
-          </div>
-        </a>
-      </div>
-      <h3>🍫 Çikolatalı Milkshake</h3>
-      <p>Zengin çikolata ve kremamsı tat, kalbi ferahlatır.</p>
-      <p class="price">80 ₺</p>
-      <button class="add-btn">Ekle</button>
-    </div>
-
   </div>
 </section>
 
@@ -1708,7 +1811,19 @@ document.addEventListener("DOMContentLoaded", function() {
   observer.observe(menu);
 });
 
+document.querySelectorAll('.category-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    // 1. Set active style
+    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 
+    // 2. Show relevant category
+    const selected = btn.dataset.category;
+    document.querySelectorAll('.category-section').forEach(section => {
+      section.style.display = (section.dataset.category === selected) ? 'grid' : 'none';
+    });
+  });
+});
     
 
 
