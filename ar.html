@@ -33,6 +33,37 @@
       box-sizing: border-box;
     }
 
+
+.category-switcher {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  background: #fff;
+  border: 2px solid var(--hot-pink);
+  color: var(--hot-pink);
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100px;
+  transition: 0.3s;
+}
+
+.category-btn.active {
+  background: var(--hot-pink);
+  color: #fff;
+}
+
+.category-btn:hover {
+  transform: scale(1.05);
+}
+
 .flavor-img {
   max-width: 100%;
   height: auto;
@@ -208,6 +239,8 @@ header {
 }
 
 
+
+
 .lightbox .lb-outerContainer {
   margin-top: 10px;  /* move everything up */
 }
@@ -222,6 +255,9 @@ header {
     flex: 1 1 auto;
     margin: 0;
   }
+
+
+  
 }
 
 
@@ -402,6 +438,13 @@ header {
       margin-top: 20px;
     }
 
+    .menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+
     .flavor {
       flex: 1 1 calc(50% - 20px);
       background: #fff;
@@ -410,6 +453,14 @@ header {
       box-shadow: 0 4px 8px var(--shadow);
       position: relative;
     }
+
+    .flavor {
+  min-height: 460px; /* Adjust as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 
     /* ===== FLOATING MILK-BOTTLE BACKGROUND ===== */
     .floating-bottles{
@@ -984,6 +1035,47 @@ button:hover {
 }
 
 
+
+
+.category-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 0.5fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+
+.flavor {
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center; /* ✅ center content inside */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ✅ center horizontally */
+  justify-content: center;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.flavor {
+  margin: auto;
+}
+
+
+
+
     /* Small screens */
   @media (max-width: 600px) {
     .cart-drawer {
@@ -999,6 +1091,16 @@ button:hover {
   .lightbox .lb-outerContainer {
     margin-top: 50px !important;
   }
+
+.category-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+  
+
+  
 
   .added-message {
     position: fixed;
@@ -1106,7 +1208,7 @@ button:hover {
 🥛⏳ جاري تحضير الميلك شيك...
   </div>
 </div>
-<a href="https://milkshakemagic.github.io/HomePage/ar" class="logo-container" aria-label="Go to homepage">
+<a href="https://milkshake-magic.github.io/HomePage/ar" class="logo-container" aria-label="Go to homepage">
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Milkshake%21_2005.svg/2560px-Milkshake%21_2005.svg.png" alt="Milkshake Magic Logo" class="logo" />
 
   <!-- <img src="h.png" alt="Milkshake Magic Logo" class="logo" /> -->
@@ -1164,12 +1266,28 @@ button:hover {
     </section>
 
 
+
+
+
+
+<!-- Category Switcher -->
+
   <!-- Menu Section -->
 <section>
   <h2 class="menu1">المنيو</h2>
+
+  <div class="category-switcher">
+  <div class="category-btn active" data-category="milkshakes">
+    🥤<br>ميلك شيك
+  </div>
+  <div class="category-btn" data-category="juices">
+    🍹<br>عصيرات
+  </div>
+</div>
   <div class="menu">
 
     <!-- Milkshake 1 -->
+  <div class="category-section" data-category="milkshakes">
     <div class="flavor" data-name="ميلك شيك موز وشوكولاتة" data-price="100">
       <div class="image-container">
         <a href="banana.jpeg"
@@ -1254,6 +1372,27 @@ button:hover {
     </div>
 
   </div>
+  </div>
+<div class="category-section" data-category="juices" style="display: none;">
+  <div class="flavor" data-name="عصير مانجا" data-price="80">
+    <div class="image-container">
+      <a href="mango.png" data-lightbox="mango-only" data-title="🥭 عصير مانجا">
+        <img class="flavor-img" src="mango.png" alt="عصير مانجا" />
+      </a>
+      <!-- ✅ Now it's outside the <a> -->
+      <div class="zoom-hint">
+        <img src="tap-finger.gif" alt="اضغط هنا" class="tap-gif" />
+        <div class="hint-text">اضغط للتكبير</div>
+      </div>
+    </div>
+
+    <h3>🥭 عصير مانجا</h3>
+    <p>عصير مانجا طبيعي 100%، محضر من مانجا مجمدة ومنعش.</p>
+    <p class="price">80 ₺</p>
+    <button class="add-btn">أضف</button>
+  </div>
+</div>
+</div>
 </section>
 
 
@@ -1771,45 +1910,61 @@ const langBtn = document.getElementById("langToggle");
 langBtn.textContent = "Türkçe";
 langBtn.onclick = () => window.location.href = "./tr";
 
-document.addEventListener("DOMContentLoaded", function() {
-  const menu = document.querySelector('.menu');
-  const hints = menu.querySelectorAll('.zoom-hint');
+document.addEventListener("DOMContentLoaded", function () {
+  const observeZoomHints = () => {
+    const hints = document.querySelectorAll('.zoom-hint');
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Fade in
-        hints.forEach(hint => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const hint = entry.target;
+
+          // Show
           hint.style.opacity = 1;
-        });
 
-        // Wait 3 sec, fade out
-        setTimeout(() => {
-          hints.forEach(hint => {
+          // Hide after 3 seconds
+          setTimeout(() => {
             hint.style.opacity = 0;
-          });
-        }, 3000);
+          }, 3000);
 
-        // Stop observing so it happens only once
-        observer.unobserve(menu);
+          observer.unobserve(hint); // only once per hint
+        }
+      });
+    }, {
+      threshold: 0.3
+    });
+
+    hints.forEach(hint => {
+      // Only observe if parent section is visible
+      const parentSection = hint.closest('.category-section');
+      if (parentSection && getComputedStyle(parentSection).display !== 'none') {
+        observer.observe(hint);
       }
     });
-  }, {
-    threshold: 0.3 // Trigger when 30% visible
+  };
+
+  // Run once on load
+  observeZoomHints();
+
+  // Category Switcher
+  document.querySelectorAll('.category-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      // 1. Set active style
+      document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // 2. Show relevant category
+      const selected = btn.dataset.category;
+      document.querySelectorAll('.category-section').forEach(section => {
+        section.style.display = (section.dataset.category === selected) ? 'grid' : 'none';
+      });
+
+      // 3. Re-observe newly visible hints
+      observeZoomHints();
+    });
   });
-
-  observer.observe(menu);
 });
-
-
-
-
-
-
-
-
 </script>
-
 
 </body>
 </html>
