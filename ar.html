@@ -1714,8 +1714,16 @@ function clearInvalid(el) {
 }
 
 /* ---------- regex rules ---------- */
+/* ---------- regex rules ---------- */
 const nameRegex   = /^[\p{L}\s]+$/u;
 const numberRegex = /^[0-9]+$/;
+
+/* ---------- helper: Arabic-to-English digits ---------- */
+function convertArabicDigitsToEnglish(str) {
+  return str
+    .replace(/[\u0660-\u0669]/g, (d) => d.charCodeAt(0) - 0x0660)
+    .replace(/[\u06F0-\u06F9]/g, (d) => d.charCodeAt(0) - 0x06F0);
+}
 
 /* ---------- click handler for the green button ---------- */
 document.getElementById("btnPlace").onclick = () => {
@@ -1725,62 +1733,70 @@ document.getElementById("btnPlace").onclick = () => {
   const blockInput = document.getElementById("blockInput");
   const paySelect  = document.getElementById("paymentMethod");
 
-  // 2) validate
-  let ok = true;
-  if (!nameRegex.test(nameInput.value.trim())) { markInvalid(nameInput,  "الاسم يجب أن يكون حروفًا فقط"); ok = false; } else clearInvalid(nameInput);
-  if (!numberRegex.test(daireInput.value.trim())){ markInvalid(daireInput,"أدخل رقم شقة صحيحًا");        ok = false; } else clearInvalid(daireInput);
-  if (!numberRegex.test(blockInput.value.trim())){ markInvalid(blockInput,"أدخل رقم بلوك صحيحًا");        ok = false; } else clearInvalid(blockInput);
-  if (paySelect.value === "")                    { markInvalid(paySelect, "اختر طريقة الدفع");            ok = false; } else clearInvalid(paySelect);
+  // 2) convert arabic numerals
+  const daireValue = convertArabicDigitsToEnglish(daireInput.value.trim());
+  const blockValue = convertArabicDigitsToEnglish(blockInput.value.trim());
 
-  if (!ok) {                           // keep user on the form
-    document.querySelector(".input-invalid")?.scrollIntoView({behavior:"smooth", block:"center"});
+  // 3) validate
+  let ok = true;
+  if (!nameRegex.test(nameInput.value.trim())) {
+    markInvalid(nameInput, "الاسم يجب أن يكون حروفًا فقط");
+    ok = false;
+  } else {
+    clearInvalid(nameInput);
+  }
+
+  if (!numberRegex.test(daireValue)) {
+    markInvalid(daireInput, "أدخل رقم شقة صحيحًا");
+    ok = false;
+  } else {
+    clearInvalid(daireInput);
+  }
+
+  if (!numberRegex.test(blockValue)) {
+    markInvalid(blockInput, "أدخل رقم بلوك صحيحًا");
+    ok = false;
+  } else {
+    clearInvalid(blockInput);
+  }
+
+  if (paySelect.value === "") {
+    markInvalid(paySelect, "اختر طريقة الدفع");
+    ok = false;
+  } else {
+    clearInvalid(paySelect);
+  }
+
+  if (!ok) {
+    document.querySelector(".input-invalid")?.scrollIntoView({ behavior: "smooth", block: "center" });
     return;
   }
 
-  // 3) all good → place the order
+  // 4) all good → place the order
   placeOrderNow({
     name  : nameInput.value.trim(),
-    daire : daireInput.value.trim(),
-    block : blockInput.value.trim(),
+    daire : daireValue,
+    block : blockValue,
     pay   : paySelect.value
   });
 };
 
 /* ---------- live re‑validation ---------- */
-["nameInput","daireInput","blockInput"].forEach((id) => {
+["nameInput", "daireInput", "blockInput"].forEach((id) => {
   const el = document.getElementById(id);
   el.addEventListener("input", () => {
     if (el.classList.contains("input-invalid")) {
       const re = id === "nameInput" ? nameRegex : numberRegex;
-      if (re.test(el.value.trim())) clearInvalid(el);
+      const val = id === "nameInput" ? el.value.trim() : convertArabicDigitsToEnglish(el.value.trim());
+      if (re.test(val)) clearInvalid(el);
     }
   });
 });
-document.getElementById("paymentMethod").addEventListener("change",(e)=>{
+
+document.getElementById("paymentMethod").addEventListener("change", (e) => {
   if (e.target.classList.contains("input-invalid") && e.target.value) clearInvalid(e.target);
 });
 
-/* ---------- placeOrderNow sends WhatsApp message ---------- */
-function placeOrderNow({ name, daire, block, pay }) {
-  const phoneNumber = "905514808648";   // ← ضع رقم الواتساب هنا
-  let total = 0;
-  let msg = "مرحبًا! أود طلب:%0A";
-  for (const [prod,{price,qty}] of Object.entries(cart)) {
-    msg += `- ${prod} x${qty} = ${price*qty} ₺%0A`;
-    total += price*qty;
-  }
-  msg += `%0Aرقم الشقة: ${encodeURIComponent(daire)}`;
-  msg += `%0Aبلوك: ${encodeURIComponent(block)}`;
-  msg += `%0Aطريقة الدفع: ${pay}`;
-  msg += `%0Aالمجموع: ₺${total}`;
-  msg += `%0Aالاسم: ${encodeURIComponent(name)}`;
-  msg += "%0AThank you!";
-
-  window.location.href = `https://wa.me/${phoneNumber}?text=${msg}`;
-
-
-  drawer.classList.remove("open");   // close the cart panel
-}
     
 
 
