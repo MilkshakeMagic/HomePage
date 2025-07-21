@@ -232,10 +232,15 @@ header {
   text-align: center;
   opacity: 0;
   transition: opacity 0.5s ease;
+  pointer-events: none; /* عشان ما يعيق النقر */
+}
+
+.zoom-hint.visible {
+  opacity: 1;
 }
 
 .zoom-hint .tap-gif {
-  width: 130px; /* Bigger GIF */
+  width: 130px;
   height: auto;
   display: block;
   margin: 0 auto;
@@ -249,8 +254,6 @@ header {
   border-radius: 4px;
   margin-top: 4px;
 }
-
-
 
 
 
@@ -284,9 +287,7 @@ header {
 
 
 
-  .zoom-hint {
-    opacity: 1;
-  }
+ 
 
   #loadingOverlay {
   position: fixed;
@@ -1823,34 +1824,26 @@ langBtn.onclick = () => window.location.href = "./ar";
 
 
 document.addEventListener("DOMContentLoaded", function() {
-  const menu = document.querySelector('.menu');
-  const hints = menu.querySelectorAll('.zoom-hint');
+  const hints = document.querySelectorAll('.zoom-hint');
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Fade in
-        hints.forEach(hint => {
-          hint.style.opacity = 1;
-        });
+        const hint = entry.target;
+        hint.classList.add('visible');
 
-        // Wait 3 sec, fade out
         setTimeout(() => {
-          hints.forEach(hint => {
-            hint.style.opacity = 0;
-          });
+          hint.classList.remove('visible');
         }, 3000);
 
-        // Stop observing so it happens only once
-        observer.unobserve(menu);
+        observer.unobserve(hint);
       }
     });
-  }, {
-    threshold: 0.3 // Trigger when 30% visible
-  });
+  }, { threshold: 0.3 });
 
-  observer.observe(menu);
+  hints.forEach(hint => observer.observe(hint));
 });
+
 
 document.querySelectorAll('.category-btn').forEach(btn => {
   btn.addEventListener('click', () => {
